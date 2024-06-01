@@ -170,7 +170,7 @@ MonoBehaviour:
   searchRadius: 100
   atackRadius: 1
   speed: 1
-  atackDamage: 0
+  atackDamage: 3
   atackRate: 0
   isPlayerSeen: 0
 --- !u!50 &-1230739271425696505

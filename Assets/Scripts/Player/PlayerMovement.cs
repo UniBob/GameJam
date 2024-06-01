@@ -7,11 +7,11 @@ public class PlayeMovement : MonoBehaviour
     [SerializeField] float speed;
 
     Rigidbody2D rb;
-    //Animator anim;
+    Animator anim;
 
     void Start()
     {
-       // anim = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -29,7 +29,9 @@ public class PlayeMovement : MonoBehaviour
     {
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
-        //anim.SetFloat("Speed", rb.velocity.magnitude);
+        if (new Vector2(inputX, inputY) != Vector2.zero)
+            anim.SetBool("isMoving", true);
+        else anim.SetBool("isMoving", false);
         rb.velocity = new Vector2(inputX, inputY) * speed;
     }
 

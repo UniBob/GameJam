@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
         {
             Instantiate(shotPrefab, shotPosition.position, transform.rotation);
             nextShotTime = Time.time + fireRate;
-            //anim.SetTrigger("Shoot");
+            anim.SetTrigger("Shoot");
         }
     }
 
