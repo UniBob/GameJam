@@ -105,6 +105,7 @@ public class Enemy : MonoBehaviour
 
     public void GetDamage(float damage)
     {
+
         health -= damage;
 
         if (health <= 0)
