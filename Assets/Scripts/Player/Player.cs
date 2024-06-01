@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] int maxHealth;
 
 
-    //Animator anim;
+    Animator anim;
     float nextShotTime;
     bool isAlive;
 
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     {
         isAlive = true;
         currentHealth = 100;
-        //anim = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
         nextShotTime = Time.time;
     }
 
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         {
             Instantiate(shotPrefab, shotPosition.position, transform.rotation);
             nextShotTime = Time.time + fireRate;
-            //anim.SetTrigger("Shoot");
+            anim.SetTrigger("Shoot");
         }
     }
 
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     void Death()
     {
         isAlive = false;
-        //anim.SetBool("isAlive", false);
+        anim.SetBool("isAlive", false);
     }
 
     public bool GetStatus()
