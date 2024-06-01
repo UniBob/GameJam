@@ -7,5 +7,6 @@ using UnityEngine;
 
 public class DamageDiller : MonoBehaviour
 {
-    public float damage;
+    [SerializeField] float damage;
+    public float GetDamage() { return damage; } 
 }

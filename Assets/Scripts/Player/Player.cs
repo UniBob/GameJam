@@ -6,13 +6,13 @@ public class Player : MonoBehaviour
 {
 
     [Header("Prefabs")]
-    public GameObject shotPrefab;
-    public Transform shotPosition;
+    [SerializeField] GameObject shotPrefab;
+    [SerializeField] Transform shotPosition;
 
     [Header("Other options")]
-    public float fireRate;
-    public int currentHealth;
-    public int maxHealth;
+    [SerializeField] float fireRate;
+    [SerializeField] int currentHealth;
+    [SerializeField] int maxHealth;
 
 
     //Animator anim;
