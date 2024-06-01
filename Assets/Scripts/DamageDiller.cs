@@ -8,5 +8,6 @@ using UnityEngine;
 public class DamageDiller : MonoBehaviour
 {
     [SerializeField] float damage;
-    public float GetDamage() { return damage; } 
+    public float GetDamage() { return damage; }
+    public void IncreaseDamage(float dam) { damage += dam; }    
 }
