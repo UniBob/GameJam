@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 
 
     Rigidbody2D rb;
-   // Animator anim;
+    Animator anim;
     Player player;
     public bool isPlayerSeen = false;
     bool isAlive;
@@ -28,8 +28,8 @@ public class Enemy : MonoBehaviour
         isAlive = true;
         rb = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<Player>();
-     //   anim = GetComponentInChildren<Animator>();
-       // anim.SetBool("isAlive", true);
+        anim = GetComponentInChildren<Animator>();
+        anim.SetBool("isAlive", true);
     }
 
     // Update is called once per frame
@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour
 
     void Death()
     {
-        //anim.SetBool("isAlive",false);
+        anim.SetBool("isAlive",false);
         isAlive = false;
         rb.velocity = Vector3.zero;
     }

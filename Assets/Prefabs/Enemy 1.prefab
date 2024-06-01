@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 5216103500427453531}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c734acb846a53ea44a10c07f65b73a32, type: 2}
+  m_Controller: {fileID: 9100000, guid: ee7aa44fdd95aef4fb4c6766ab645f4a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 8759062102805441691}
   - component: {fileID: -1230739271425696505}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: Enemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
   atackRadius: 1
   speed: 1
   atackDamage: 3
-  atackRate: 0
+  atackRate: 4
   isPlayerSeen: 0
 --- !u!50 &-1230739271425696505
 Rigidbody2D:
