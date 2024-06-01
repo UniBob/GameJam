@@ -2,27 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{    
-    [SerializeField] private float speed;
-    private Rigidbody2D rb;
+public class PlayeMovement : MonoBehaviour
+{
+    public float speed;
 
-    // Start is called before the first frame update
+    Rigidbody2D rb;
+    //Animator anim;
+
     void Start()
     {
-       rb = GetComponent<Rigidbody2D>();
+       // anim = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+
+    void FixedUpdate()
+    {
+        // if (anim.GetBool("isAlive"))
+
+        Move();
+        Rotate();
+
     }
 
     private void Move()
     {
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
-     //   anim.SetFloat("Speed", rb.velocity.magnitude);
+        //anim.SetFloat("Speed", rb.velocity.magnitude);
         rb.velocity = new Vector2(inputX, inputY) * speed;
     }
 
-    void Update()
+    private void Rotate()
     {
-        Move();
+        var mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mouseWorldPosition - transform.position;
+        transform.up = -direction;
     }
 }
