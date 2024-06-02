@@ -39,8 +39,8 @@ public class GardenKeeperScript : MonoBehaviour
                     if (whichPlantIsPlantedInTheSpot[i] != Plants.Nothing)
                     {
                         goldIncome += plantsPrices[(int)whichPlantIsPlantedInTheSpot[i]];
-                        plantsSpots[i].SetSprite(plantsSprites[(int)Plants.Nothing], true);
                     }
+                    plantsSpots[i].SetSprite(plantsSprites[(int)Plants.Nothing], true);
                 }
                 goldKeeper.IncreeseGoldAmount((int)(goldIncome*(goldMultiplier/40)));
             }
@@ -49,10 +49,8 @@ public class GardenKeeperScript : MonoBehaviour
             {
                 for (int i = 0; i < whichPlantIsPlantedInTheSpot.Length; i++)
                 {
-                    if (whichPlantIsPlantedInTheSpot[i] != Plants.Nothing)
-                    {
-                        plantsSpots[i].SetSprite(plantsSprites[(int)whichPlantIsPlantedInTheSpot[i]], whichPlantIsPlantedInTheSpot[i] == Plants.Nothing);
-                    }
+                    plantsSpots[i].SetSprite(plantsSprites[(int)whichPlantIsPlantedInTheSpot[i]], whichPlantIsPlantedInTheSpot[i] == Plants.Nothing);
+                  
                 }
             }
         }
@@ -61,10 +59,8 @@ public class GardenKeeperScript : MonoBehaviour
             PlayerPrefs.SetInt(PrefsKeys.clearLocationKey, 0);
             for (int i = 0; i < whichPlantIsPlantedInTheSpot.Length; i++)
             {
-                if (whichPlantIsPlantedInTheSpot[i] != Plants.Nothing)
-                {
-                    plantsSpots[i].SetSprite(plantsSprites[(int)whichPlantIsPlantedInTheSpot[i]], whichPlantIsPlantedInTheSpot[i] == Plants.Nothing);
-                }
+                plantsSpots[i].SetSprite(plantsSprites[(int)whichPlantIsPlantedInTheSpot[i]], whichPlantIsPlantedInTheSpot[i] == Plants.Nothing);
+            
             }
         }
     }
@@ -103,10 +99,13 @@ public class GardenKeeperScript : MonoBehaviour
         }
     }
 
-    public Sprite PlantIsPlanted(int spotTag, Plants plant)
+    public void PlantIsPlanted(int plant)
     {
-        whichPlantIsPlantedInTheSpot[spotTag] = plant;
-        return plantsSprites[(int)plant];
+        whichPlantIsPlantedInTheSpot[actualPlantSpot] = (Plants)plant;
+        Debug.Log("plantsSpots[actualPlantSpot]: " + plantsSpots[actualPlantSpot]);
+        Debug.Log("plantsSprites[plant]: " + plantsSprites[plant]);
+        plantsSpots[actualPlantSpot].SetSprite(plantsSprites[plant], false);
+        ChoosePlantingPlantPanel.SetActive(false);
     }
 
     public void SetActualPlantsSpots(int actualSpot)

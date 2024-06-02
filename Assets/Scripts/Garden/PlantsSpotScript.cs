@@ -11,12 +11,18 @@ public class PlantsSpotScript : MonoBehaviour
     private bool isEmpty = true;
     [SerializeField] private int spotTag;
     [SerializeField] GameObject buttonIcon;
-    
-    private void Start()
+
+    private void Awake()
     {
+        Debug.Log("Awake");
         spriteRenderer = GetComponent<SpriteRenderer>();
         keeper = FindObjectOfType<GardenKeeperScript>();
         buttonIcon.SetActive(false);
+    }
+
+    private void Start()
+    {
+        Debug.Log("Start");
     }
 
     void Update()
@@ -43,26 +49,29 @@ public class PlantsSpotScript : MonoBehaviour
     // Вызывается, когда игрок покидает триггер
     void OnTriggerExit2D(Collider2D other)
     {
-        if (isEmpty)
+        if (other.GetComponent<Player>() != null)
         {
-            if (other.GetComponent<Player>() != null)
-            {
-                isPlayerNearby = false;
-                buttonIcon.SetActive(false);
-            }
+            isPlayerNearby = false;
+            buttonIcon.SetActive(false);
         }
     }
 
     public void SetSprite(Sprite sprite, bool set)
     {
+        Debug.Log("spriteRenderer: " + spriteRenderer);
+        Debug.Log("spriteRenderer.sprite: " + spriteRenderer.sprite);
         spriteRenderer.sprite = sprite;
         isEmpty = set;
+        if(!isEmpty && isPlayerNearby)
+        {
+            isPlayerNearby = false;
+            buttonIcon.SetActive(false);
+        }
     }
 
     // Метод для выполнения действия
     void PerformAction()
     {
-        Debug.Log("hi");
         keeper.SetActualPlantsSpots(spotTag);
     }
 }
