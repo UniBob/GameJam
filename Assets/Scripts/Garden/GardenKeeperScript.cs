@@ -12,22 +12,26 @@ public class GardenKeeperScript : MonoBehaviour
         Cucumber,
         Onion
     }
-    [SerializeField] Vector2[] plantsSpotsCoordinates;
-    [SerializeField] GameObject[] plantsPrefabs;
+       
+    [SerializeField] PlantsSpotScript[] plantsSpots;
+    [SerializeField] Sprite[] plantsSprites;
     [SerializeField] Plants[] whichPlantIsPlantedInTheSpot;
     [SerializeField] int[] plantsPrices;
 
     private void Start()
     {
-        for (int i = 0;i<plantsSpotsCoordinates.Length;i++)
+        for (int i = 0; i < whichPlantIsPlantedInTheSpot.Length; i++) 
         {
-            GameObject instance = Instantiate(plantsPrefabs[(int)whichPlantIsPlantedInTheSpot[i]], plantsSpotsCoordinates[i], Quaternion.identity);            
+            if (whichPlantIsPlantedInTheSpot[i] != Plants.Nothing)
+            {
+                plantsSpots[i].SetSprite(plantsSprites[(int)whichPlantIsPlantedInTheSpot[i]], whichPlantIsPlantedInTheSpot[i] == Plants.Nothing);
+            }
         }
     }
 
-    public void PlantIsPlanted(int spotTag, Plants plant)
+    public Sprite PlantIsPlanted(int spotTag, Plants plant)
     {
         whichPlantIsPlantedInTheSpot[spotTag] = plant;
-        GameObject instance = Instantiate(plantsPrefabs[(int)whichPlantIsPlantedInTheSpot[spotTag]], plantsSpotsCoordinates[spotTag], Quaternion.identity);
+        return plantsSprites[(int)plant];
     }
 }

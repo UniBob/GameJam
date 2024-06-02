@@ -7,45 +7,62 @@ public class PlantsSpotScript : MonoBehaviour
 {
     private bool isPlayerNearby = false;
     private GardenKeeperScript keeper;
+    private SpriteRenderer spriteRenderer;
+    private bool isEmpty;
     [SerializeField] private int spotTag;
     [SerializeField] GameObject buttonIcon;
     
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         keeper = FindObjectOfType<GardenKeeperScript>();
-        buttonIcon.GameObject().active = false;
+        buttonIcon.SetActive(false);
     }
 
     void Update()
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
-        {
+        {            
             PerformAction();
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Player>() != null)
+        if (isEmpty)
         {
-            isPlayerNearby = true;
-            buttonIcon.GameObject().SetActive(true);
+            if (other.GetComponent<Player>() != null)
+            {
+
+                isPlayerNearby = true;
+                buttonIcon.SetActive(true);
+            }
         }
     }
 
     // Вызывается, когда игрок покидает триггер
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.GetComponent<Player>() != null)
+        if (isEmpty)
         {
-            isPlayerNearby = false;
-            buttonIcon.GameObject().SetActive(false);
+            if (other.GetComponent<Player>() != null)
+            {
+                isPlayerNearby = false;
+                buttonIcon.SetActive(false);
+            }
         }
+    }
+
+    public void SetSprite(Sprite sprite, bool set)
+    {
+        spriteRenderer.sprite = sprite;
+        isEmpty = set;
     }
 
     // Метод для выполнения действия
     void PerformAction()
     {
-        keeper.PlantIsPlanted(spotTag, GardenKeeperScript.Plants.Tomato);
+        isEmpty = false;
+        spriteRenderer.sprite = keeper.PlantIsPlanted(spotTag, GardenKeeperScript.Plants.Tomato);
     }
 }
