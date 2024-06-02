@@ -8,7 +8,7 @@ public class PlantsSpotScript : MonoBehaviour
     private bool isPlayerNearby = false;
     private GardenKeeperScript keeper;
     [SerializeField] private int spotTag;
-    [SerializeField] Sprite buttonIcon;
+    [SerializeField] GameObject buttonIcon;
     
     private void Start()
     {
