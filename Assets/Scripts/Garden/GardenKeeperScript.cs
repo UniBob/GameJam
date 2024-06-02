@@ -2,18 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class PrefsKeys
-{
-    public static string plantedKey = "whichPlantIsPlantedInTheSpot";
-    public static string clearLocationKey = "healthOnLocationEnd";
-    public static string maxHealthKey = "maxHealth";
-    public static string currentHealthKey = "currentHealth";
-    public static string fireRateKey = "currentHealth";
-    public static string bulletDamageKey = "currentHealth";
-    public static string currentGoldKey = "currentGold";
-}
-
-
 public class GardenKeeperScript : MonoBehaviour
 {
     public enum Plants
@@ -30,10 +18,10 @@ public class GardenKeeperScript : MonoBehaviour
     [SerializeField] Plants[] whichPlantIsPlantedInTheSpot;
     [SerializeField] int[] plantsPrices;
     [SerializeField] GoldKeeperScript goldKeeper;
-    private string plantedKey = "whichPlantIsPlantedInTheSpot";
-    private string clearLocationKey = "healthOnLocationEnd";
+
     private void Start()
     {
+        Player.Save += SaveSpotsStatus;
         LoadArray(PrefsKeys.plantedKey);
 
         if (PlayerPrefs.HasKey(PrefsKeys.clearLocationKey))
@@ -78,10 +66,10 @@ public class GardenKeeperScript : MonoBehaviour
         }
     }
 
-    public void SaveSpotsStatus(string key)
+    public void SaveSpotsStatus()
     {
         string json = JsonUtility.ToJson(new Serialization<Plants>(whichPlantIsPlantedInTheSpot));
-        PlayerPrefs.SetString(key, json);
+        PlayerPrefs.SetString(PrefsKeys.plantedKey, json);
         PlayerPrefs.Save();
     }
 

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public delegate void SaveDelegate();
+    public static SaveDelegate Save;
+
     [Header("UI")]
     [SerializeField] Slider slider;
 
@@ -27,6 +30,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Save += SaveParams;
         goldKeeper = GetComponent<GoldKeeperScript>();
         slider = FindObjectOfType<Slider>();
         isAlive = true;
@@ -79,6 +83,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void SaveParams()
+    {
+        PlayerPrefs.SetInt(PrefsKeys.maxHealthKey, maxHealth);
+        PlayerPrefs.SetInt(PrefsKeys.currentHealthKey, currentHealth);
+        PlayerPrefs.SetFloat(PrefsKeys.fireRateKey, fireRate);
+        PlayerPrefs.SetFloat(PrefsKeys.bulletDamageKey, bulletDamage);
+    }
     public float GetBulletDamage()
     {
         return bulletDamage;

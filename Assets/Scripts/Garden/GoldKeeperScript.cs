@@ -14,9 +14,14 @@ public class GoldKeeperScript : MonoBehaviour
     { 
         return goldAmount; 
     }
-
+    void SaveGold()
+    {
+        PlayerPrefs.SetInt(PrefsKeys.currentGoldKey, goldAmount);
+    }
     void Start()
     {
+        Player.Save += SaveGold;
+
         if (PlayerPrefs.HasKey(PrefsKeys.currentGoldKey))
         {
             goldAmount = PlayerPrefs.GetInt(PrefsKeys.currentGoldKey);
