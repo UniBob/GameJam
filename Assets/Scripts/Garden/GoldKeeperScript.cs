@@ -4,10 +4,28 @@ using UnityEngine;
 
 public class GoldKeeperScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private int goldAmount;
+
+    public void IncreeseGoldAmount(int i )
+    { 
+        goldAmount = i; 
+    }
+    public int GetGoldAmount()
+    { 
+        return goldAmount; 
+    }
+
     void Start()
     {
-        
+        if (PlayerPrefs.HasKey(PrefsKeys.currentGoldKey))
+        {
+            goldAmount = PlayerPrefs.GetInt(PrefsKeys.currentGoldKey);
+        }
+        else
+        {
+            goldAmount = 0;
+            PlayerPrefs.SetInt(PrefsKeys.currentGoldKey, 0);
+        }
     }
 
     // Update is called once per frame

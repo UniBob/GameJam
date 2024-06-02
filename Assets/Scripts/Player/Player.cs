@@ -22,10 +22,12 @@ public class Player : MonoBehaviour
     Animator anim;
     float nextShotTime;
     bool isAlive;
+    GoldKeeperScript goldKeeper;
 
     // Start is called before the first frame update
     void Start()
     {
+        goldKeeper = GetComponent<GoldKeeperScript>();
         slider = FindObjectOfType<Slider>();
         isAlive = true;
         SyncronizePrayerParams();
@@ -36,44 +38,44 @@ public class Player : MonoBehaviour
 
     private void SyncronizePrayerParams()
     {
-        if (PlayerPrefs.HasKey("maxHealth"))
+        if (PlayerPrefs.HasKey(PrefsKeys.maxHealthKey))
         {
-            maxHealth = PlayerPrefs.GetInt("maxHealth");
+            maxHealth = PlayerPrefs.GetInt(PrefsKeys.maxHealthKey);
         }
         else
         {
             maxHealth = 100;
-            PlayerPrefs.SetInt("maxHealth", maxHealth);
+            PlayerPrefs.SetInt(PrefsKeys.maxHealthKey, maxHealth);
         }
 
-        if (PlayerPrefs.HasKey("currentHealth"))
+        if (PlayerPrefs.HasKey(PrefsKeys.currentHealthKey))
         {
-            currentHealth = PlayerPrefs.GetInt("currentHealth");
+            currentHealth = PlayerPrefs.GetInt(PrefsKeys.currentHealthKey);
         }
         else
         {
             currentHealth = maxHealth;
-            PlayerPrefs.SetInt("currentHealth", currentHealth);
+            PlayerPrefs.SetInt(PrefsKeys.currentHealthKey, currentHealth);
         }
 
-        if (PlayerPrefs.HasKey("fireRate"))
+        if (PlayerPrefs.HasKey(PrefsKeys.fireRateKey))
         {
-            fireRate = PlayerPrefs.GetFloat("fireRate");
+            fireRate = PlayerPrefs.GetFloat(PrefsKeys.fireRateKey);
         }
         else
         {
             fireRate = 0.4f;
-            PlayerPrefs.SetFloat("fireRate", fireRate);
+            PlayerPrefs.SetFloat(PrefsKeys.fireRateKey, fireRate);
         }
 
-        if (PlayerPrefs.HasKey("bulletDamage"))
+        if (PlayerPrefs.HasKey(PrefsKeys.bulletDamageKey))
         {
-            bulletDamage = PlayerPrefs.GetFloat("bulletDamage");
+            bulletDamage = PlayerPrefs.GetFloat(PrefsKeys.bulletDamageKey);
         }
         else
         {
             bulletDamage = 10f;
-            PlayerPrefs.SetFloat("bulletDamage", bulletDamage);
+            PlayerPrefs.SetFloat(PrefsKeys.bulletDamageKey, bulletDamage);
         }
     }
 
