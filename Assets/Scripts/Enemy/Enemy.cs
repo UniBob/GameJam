@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,13 +15,14 @@ public class Enemy : MonoBehaviour
     public int atackDamage;
     public float atackRate;
 
-
     Rigidbody2D rb;
     Animator anim;
     Player player;
     public bool isPlayerSeen = false;
     bool isAlive;
     float nextAtackTime;
+    public AIPath aiPath;
+   // Vector2 direction;
 
     private void Start()
     {
@@ -32,36 +34,16 @@ public class Enemy : MonoBehaviour
         anim.SetBool("isAlive", true);
     }
 
-    // Update is called once per frame
+   // Update is called once per frame
     void Update()
     {
         if (isAlive)
         {
-            Rotate();
             SearchPlayer();
-            if (isPlayerSeen) 
-            {
-                Move(player.transform.position + (-transform.position)); 
-            }
-            else 
-            {
-                Move(Vector3.zero); 
-            }
         }
-      
+
     }
 
-    void Move(Vector3 velocity)
-    {
-        rb.velocity = velocity * speed;
-    }
-
-    void Rotate()
-    {
-        var playerPosition = player.transform.position;
-        Vector2 direction = playerPosition - transform.position;
-        transform.up = -direction;
-    }
 
     private void SearchPlayer()
     {
@@ -119,5 +101,7 @@ public class Enemy : MonoBehaviour
         anim.SetBool("isAlive",false);
         isAlive = false;
         rb.velocity = Vector3.zero;
+        GetComponent<AIPath>().enabled = false;
+        GetComponent<AIDestinationSetter>().enabled = false;
     }
 }
