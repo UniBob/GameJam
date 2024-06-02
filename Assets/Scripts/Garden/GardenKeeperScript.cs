@@ -18,6 +18,9 @@ public class GardenKeeperScript : MonoBehaviour
     [SerializeField] Plants[] whichPlantIsPlantedInTheSpot;
     [SerializeField] int[] plantsPrices;
     [SerializeField] GoldKeeperScript goldKeeper;
+    [SerializeField] GameObject ChoosePlantingPlantPanel;
+
+    private int actualPlantSpot;
 
     private void Start()
     {
@@ -104,5 +107,11 @@ public class GardenKeeperScript : MonoBehaviour
     {
         whichPlantIsPlantedInTheSpot[spotTag] = plant;
         return plantsSprites[(int)plant];
+    }
+
+    public void SetActualPlantsSpots(int actualSpot)
+    {
+        actualPlantSpot = actualSpot;
+        ChoosePlantingPlantPanel.SetActive(true);
     }
 }

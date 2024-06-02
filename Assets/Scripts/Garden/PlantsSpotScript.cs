@@ -8,7 +8,7 @@ public class PlantsSpotScript : MonoBehaviour
     private bool isPlayerNearby = false;
     private GardenKeeperScript keeper;
     private SpriteRenderer spriteRenderer;
-    private bool isEmpty;
+    private bool isEmpty = true;
     [SerializeField] private int spotTag;
     [SerializeField] GameObject buttonIcon;
     
@@ -62,7 +62,7 @@ public class PlantsSpotScript : MonoBehaviour
     // Метод для выполнения действия
     void PerformAction()
     {
-        isEmpty = false;
-        spriteRenderer.sprite = keeper.PlantIsPlanted(spotTag, GardenKeeperScript.Plants.Tomato);
+        Debug.Log("hi");
+        keeper.SetActualPlantsSpots(spotTag);
     }
 }

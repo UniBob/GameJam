@@ -99,6 +99,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButton("Fire1") && nextShotTime <= Time.time && isAlive)
         {
+            Debug.Log("shoot");
             Instantiate(shotPrefab, shotPosition.position, transform.rotation);
             nextShotTime = Time.time + fireRate;
             anim.SetTrigger("Shoot");
