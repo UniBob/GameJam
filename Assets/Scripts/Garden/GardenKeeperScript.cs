@@ -44,7 +44,6 @@ public class GardenKeeperScript : MonoBehaviour
                 }
                 goldKeeper.IncreeseGoldAmount((int)(goldIncome*(goldMultiplier/40)));
             }
-
             else
             {
                 for (int i = 0; i < whichPlantIsPlantedInTheSpot.Length; i++)

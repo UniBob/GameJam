@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
     public delegate void SaveDelegate();
     public static SaveDelegate Save;
 
-    [Header("UI")]
-    [SerializeField] Slider slider;
+    public delegate void HealthUpdate(int currentHealth);
+    public static HealthUpdate HPUpdate;
 
     [Header("Prefabs")]
     [SerializeField] GameObject shotPrefab;
@@ -32,12 +32,11 @@ public class Player : MonoBehaviour
     {
         Save += SaveParams;
         goldKeeper = GetComponent<GoldKeeperScript>();
-        slider = FindObjectOfType<Slider>();
         isAlive = true;
         SyncronizePrayerParams();
-        slider.value = currentHealth;
         anim = GetComponentInChildren<Animator>();
         nextShotTime = Time.time;
+        if (HPUpdate != null) { HPUpdate(currentHealth); };
     }
 
     private void SyncronizePrayerParams()
@@ -94,6 +93,7 @@ public class Player : MonoBehaviour
     {
         return bulletDamage;
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
         {
             Death();
         }
-        slider.value = currentHealth;
+        if (HPUpdate != null) { HPUpdate(currentHealth); }
     }
 
     public int GetCurrentHealth()
