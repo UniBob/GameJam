@@ -7,5 +7,7 @@ public static class PrefsKeys
     public static string fireRateKey = "fireRate";
     public static string bulletDamageKey = "bulletDamage";
     public static string currentGoldKey = "currentGold";
+    public static string stage = "currentStage";
+    public static string enemyesOnStage = "enemyesOnStage";
 }
 
