@@ -5,21 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Portals : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private int fightSceneTag = 2;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player.Save();
         Debug.Log("Something entered  the trigger");
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(fightSceneTag);
     }
 }

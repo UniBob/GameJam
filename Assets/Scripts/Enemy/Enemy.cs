@@ -6,19 +6,23 @@ using Pathfinding;
 public class Enemy : MonoBehaviour
 {
     [Header("Base stats")]
-    public float health;
-    public float searchRadius;
-    public float atackRadius;
-    public float speed;
+    [SerializeField] private float health;
+    [SerializeField] private float searchRadius;
+    [SerializeField] private float atackRadius;
+    [SerializeField] private float speed;
+    [SerializeField] private float timeThatBodyExistsAfterDeath;
+    [SerializeField] private float timeOfDeath;
+    [SerializeField] private int enemyTag;
+
 
     [Header("Atack")]
-    public int atackDamage;
-    public float atackRate;
+    [SerializeField] private int atackDamage;
+    [SerializeField] private float atackRate;
 
     Rigidbody2D rb;
     Animator anim;
     Player player;
-    public bool isPlayerSeen = false;
+    [SerializeField] private bool isPlayerSeen = false;
     bool isAlive;
     float nextAtackTime;
     public AIPath aiPath;
@@ -26,10 +30,12 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        aiPath = GetComponent<AIPath>();
         nextAtackTime = Time.time;
         isAlive = true;
         rb = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<Player>();
+        aiPath.target = player.gameObject.transform;
         anim = GetComponentInChildren<Animator>();
         anim.SetBool("isAlive", true);
     }
@@ -41,7 +47,13 @@ public class Enemy : MonoBehaviour
         {
             SearchPlayer();
         }
-
+        else
+        {
+            if (Time.time - timeOfDeath > timeThatBodyExistsAfterDeath)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
 
@@ -87,7 +99,6 @@ public class Enemy : MonoBehaviour
 
     public void GetDamage(float damage)
     {
-
         health -= damage;
 
         if (health <= 0)
@@ -103,5 +114,7 @@ public class Enemy : MonoBehaviour
         rb.velocity = Vector3.zero;
         GetComponent<AIPath>().enabled = false;
         GetComponent<AIDestinationSetter>().enabled = false;
+        timeOfDeath = Time.time;
+        FindObjectOfType<FightSceneManager>().EnemyDeath(enemyTag);
     }
 }

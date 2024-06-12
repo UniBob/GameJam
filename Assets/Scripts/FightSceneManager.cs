@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class FightSceneManager : MonoBehaviour
@@ -17,13 +18,15 @@ public class FightSceneManager : MonoBehaviour
     [Header("Stages")]
     [SerializeField] GameObject[] stages;
 
-    private int stage;
-    private int enemyesOnStage;
+    [Header("Else")]
+    [SerializeField] private int gardenSceneTag = 1;
+    [SerializeField] int multiplierPerLevel = 32;
+
+    [SerializeField] private int stage;
+    [SerializeField] private int enemyesOnStage;
 
     private void Start()
     {
-        GameObject gold = Instantiate(goldUIElementPrefab, goldUIElementCoordinates, Quaternion.identity);
-        GameObject hpBar = Instantiate(healthBarPrefab, healthBarCoordinates, Quaternion.identity);
         if (PlayerPrefs.HasKey(PrefsKeys.stage))
         {
             stage = PlayerPrefs.GetInt(PrefsKeys.stage);
@@ -48,22 +51,26 @@ public class FightSceneManager : MonoBehaviour
 
     private void AddEnemyesOnStage()
     {
+        int tmpmultiplierPerLevel = multiplierPerLevel * multiplierPerLevel * multiplierPerLevel * multiplierPerLevel;
         int enemyCount = enemyesOnStage;
-        while (enemyCount>32768)
+        while (enemyCount> tmpmultiplierPerLevel)
         {
             Instantiate(Enemyes[3], GetRandomCoordinatesForEnemy(), Quaternion.identity);
-            enemyCount -= 32768;
+            enemyCount -= tmpmultiplierPerLevel;
         }
+        tmpmultiplierPerLevel = (int)(tmpmultiplierPerLevel/multiplierPerLevel);
         while (enemyCount > 1024)
         {
             Instantiate(Enemyes[2], GetRandomCoordinatesForEnemy(), Quaternion.identity);
             enemyCount -= 1024;
         }
+        tmpmultiplierPerLevel = (int)(tmpmultiplierPerLevel / multiplierPerLevel);
         while (enemyCount > 32)
         {
             Instantiate(Enemyes[1], GetRandomCoordinatesForEnemy(), Quaternion.identity);
             enemyCount -= 32;
         }
+        tmpmultiplierPerLevel = (int)(tmpmultiplierPerLevel / multiplierPerLevel);
         while (enemyCount > 1)
         {
             Instantiate(Enemyes[0], GetRandomCoordinatesForEnemy(), Quaternion.identity);
@@ -75,13 +82,13 @@ public class FightSceneManager : MonoBehaviour
     {
         return new Vector2(0,0);
     }
-
+    // 
     public void EnemyDeath(int tag)
     {
         int tmp = 1;
-        for (int i = tag;i>0;i--)
+        for (int i = tag; i > 0; i--) 
         {
-            tmp *= 32;
+            tmp *= multiplierPerLevel;
         }
         enemyesOnStage -= tmp;
         if (enemyesOnStage <= 0)
@@ -92,9 +99,12 @@ public class FightSceneManager : MonoBehaviour
 
     private void Win()
     {
+
         stage++;
         enemyesOnStage = PlayerPrefs.GetInt(PrefsKeys.enemyesOnStage);
         enemyesOnStage += stage * 4;
         PlayerPrefs.SetInt(PrefsKeys.enemyesOnStage, enemyesOnStage);
+        PlayerPrefs.SetInt(PrefsKeys.stage, stage);
+        SceneManager.LoadScene(gardenSceneTag);
     }
 }
