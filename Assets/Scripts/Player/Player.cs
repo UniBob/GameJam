@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     public delegate void HealthUpdate(int currentHealth);
     public static HealthUpdate HPUpdate;
 
+    public delegate void ParamsUpdate(int currentHealth);
+    public static ParamsUpdate paramUpdate;
+
     [Header("Prefabs")]
     [SerializeField] GameObject shotPrefab;
     [SerializeField] Transform shotPosition;
@@ -25,13 +28,11 @@ public class Player : MonoBehaviour
     Animator anim;
     float nextShotTime;
     bool isAlive;
-    GoldKeeperScript goldKeeper;
 
     // Start is called before the first frame update
     void Start()
     {
         Save += SaveParams;
-        goldKeeper = GetComponent<GoldKeeperScript>();
         isAlive = true;
         SyncronizePrayerParams();
         anim = GetComponentInChildren<Animator>();
@@ -143,5 +144,10 @@ public class Player : MonoBehaviour
             currentHealth += heal;
             return true;
         }
+    }
+
+    public void BonusAddition(float damage, float fireRate, int health, float movomentSpeed)
+    {
+
     }
 }

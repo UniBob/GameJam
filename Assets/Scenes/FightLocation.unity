@@ -32880,7 +32880,7 @@ MonoBehaviour:
   - {fileID: 5400048433094002975, guid: 056daabd4f08e1046b6c48b18751a33d, type: 3}
   - {fileID: 5400048433094002975, guid: 0760a447273090e488331d8390b98d4e, type: 3}
   stages: []
-  gardenSceneTag: 1
+  gardenSceneTag: 3
   multiplierPerLevel: 32
   stage: 0
   enemyesOnStage: 0
